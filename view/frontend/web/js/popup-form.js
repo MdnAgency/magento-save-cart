@@ -14,11 +14,13 @@ define(['jquery', 'Magento_Ui/js/modal/modal'], function ($, modal) {
                 innerScroll: true,
                 modalClass: 'custom_popup_box'
             };
-            modal(popupOptions, this.options.PopupForms);
-            $(self.options.popupLink).on('click',function () {
-                $(self.options.PopupForms).css({display: 'block'});
-                $(self.options.PopupForms).modal('openModal');
-            });
+
+             modal(popupOptions, this.options.PopupForms);
+            $(self.options.PopupForms).modal('openModal');
+            // $(self.options.popupLink).on('click',function () {
+            //     $(self.options.PopupForms).css({display: 'block'});
+            //     $(self.options.PopupForms).modal('openModal');
+            // });
         }
     });
     return $.maisondunet.customWidgetPopupForm;

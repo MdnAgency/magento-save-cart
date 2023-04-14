@@ -23,7 +23,7 @@
         <td>
             <form method="post" action="/mdnsavecart/switchactivequote">
                 <input type="hidden" value="<?= $item->getQuoteId() ?>" name="quote_id">
-                <button class="action-print" type="submit">Add active cart</button>
+                <button  type="submit">Add active cart</button>
             </form>
             <form method="post" action="/mdnsavecart/delete">
                 <input type="hidden" value="<?= $item->getQuoteDescriptionId() ?>" name="entity_id">

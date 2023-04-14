@@ -9,6 +9,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\Manager;
+use Magento\Framework\View\Result\PageFactory;
 use Magento\Quote\Api\CartManagementInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartInterface;
@@ -24,6 +25,7 @@ class Index implements HttpPostActionInterface
     private ResultFactory $resultFactory;
     private QuoteDescriptionCollectionFactory $collectionFactory;
     private Manager $manager;
+    private PageFactory $pageFactory;
 
     public function __construct(
         RequestInterface                  $request,
@@ -32,7 +34,8 @@ class Index implements HttpPostActionInterface
         CartRepositoryInterface           $cartRepository,
         ResultFactory                     $resultFactory,
         QuoteDescriptionCollectionFactory $collectionFactory,
-        Manager $manager,
+        Manager                           $manager,
+        PageFactory                       $pageFactory,
     ) {
         $this->request = $request;
         $this->session = $session;
@@ -41,6 +44,7 @@ class Index implements HttpPostActionInterface
         $this->resultFactory = $resultFactory;
         $this->collectionFactory = $collectionFactory;
         $this->manager = $manager;
+        $this->pageFactory = $pageFactory;
     }
 
     /**
@@ -49,35 +53,36 @@ class Index implements HttpPostActionInterface
     public function execute()
     {
         $customer = $this->session->getCustomer();
+        try {
+            if ($customer != null) {
 
-        if ($customer != null) {
+                //Get current quote
+                $currentQuote = $this->cartManagement->getCartForCustomer($customer->getId());
 
-            //Get current quote
-            $currentQuote = $this->cartManagement->getCartForCustomer($customer->getId());
-            try {
                 if ($this->checkIfCurrentCartIsAlreadySave($currentQuote)) {
+                    $this->displayPopup();
                     throw new LocalizedException(__('Your current cart is not save'));
                 }
-            } catch (LocalizedException $exception) {
-                $this->manager->addErrorMessage($exception->getMessage());
+
+                //Get selected inactive quote
+                $inactiveQuote = $this->cartRepository->get($this->request->getParam('quote_id'));
+
+                //Switch
+
+                $inactiveQuote->setIsActive(true);
+                $this->cartRepository->save($inactiveQuote);
+
+                $currentQuote->setIsActive(false);
+                $this->cartRepository->save($currentQuote);
             }
-
-            //Get selected inactive quote
-            $inactiveQuote = $this->cartRepository->get($this->request->getParam('quote_id'));
-
-            //Switch
-
-            $inactiveQuote->setIsActive(true);
-            $this->cartRepository->save($inactiveQuote);
-
-            $currentQuote->setIsActive(false);
-            $this->cartRepository->save($currentQuote);
-
-            $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            $redirect->setUrl('https://app.test-magento.test/checkout/cart');
-            return $redirect;
+        } catch (LocalizedException $exception) {
+            $this->manager->addErrorMessage($exception->getMessage());
         }
+        $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $redirect->setUrl('https://app.test-magento.test/checkout/cart');
+        return $redirect;
     }
+
     private function checkIfCurrentCartIsAlreadySave(CartInterface $currentQuote): bool
     {
         $collection = $this->collectionFactory->create();
@@ -89,5 +94,18 @@ class Index implements HttpPostActionInterface
             return false;
         }
         return true;
+    }
+
+    private function displayPopup()
+    {
+        $resultPage = $this->pageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__('heading'));
+
+        $block = $resultPage->getLayout()
+            ->createBlock('Maisondunet\SaveQuote\Block\SaveQuote')
+            ->setTemplate('Maisondunet_SaveQuote::PopupForm.phtml')
+            ->toHtml();
+
+        $this->getResponse()->setBody($block);
     }
 }
