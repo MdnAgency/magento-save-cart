@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface"
+                type="Maisondunet\SaveQuote\Model\Data\QuoteDescriptionData"/>
+    <preference for="Maisondunet\SaveQuote\Api\GetQuoteDescriptionListInterface"
+                type="Maisondunet\SaveQuote\Query\QuoteDescription\GetListQuery"/>
+    <preference for="Maisondunet\SaveQuote\Api\SaveQuoteDescriptionInterface"
+                type="Maisondunet\SaveQuote\Command\QuoteDescription\SaveCommand"/>
+    <preference for="Maisondunet\SaveQuote\Api\DeleteQuoteDescriptionByIdInterface"
+                type="Maisondunet\SaveQuote\Command\QuoteDescription\DeleteByIdCommand"/>
+    <preference for="Maisondunet\SaveQuote\Api\Data\QuoteDescriptionSearchResultsInterface"
+                type="Maisondunet\SaveQuote\Model\QuoteDescriptionSearchResults"/>
+
+</config>

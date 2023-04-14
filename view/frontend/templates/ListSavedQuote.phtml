@@ -1,0 +1,38 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
+?>
+<h2>List of your saved cart</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Number of Items</th>
+        <th>Total price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php try {
+    foreach ($block->getCustomerSaveCart()->getItems() as $item): ?>
+    <tr>
+        <td><?= $item->getName() ?></td>
+        <td><?= $item->getDescription() ?></td>
+        <td><?= $item->getItemsCount() ?></td>
+        <td><?= $item->getGrandTotal() ?></td>
+        <td>
+            <form method="post" action="/mdnsavecart/switchactivequote">
+                <input type="hidden" value="<?= $item->getQuoteId() ?>" name="quote_id">
+                <button class="action-print" type="submit">Add active cart</button>
+            </form>
+            <form method="post" action="/mdnsavecart/delete">
+                <input type="hidden" value="<?= $item->getQuoteDescriptionId() ?>" name="entity_id">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+    <?php endforeach;
+} catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+} ?>
+</table>

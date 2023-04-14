@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/quote-description/get-list" method="GET">
+        <service class="Maisondunet\SaveQuote\Api\GetQuoteDescriptionListInterface" method="execute"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/quote-description/save" method="POST">
+        <service class="Maisondunet\SaveQuote\Api\SaveQuoteDescriptionInterface" method="execute"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/quote-description/:entityId" method="DELETE">
+        <service class="Maisondunet\SaveQuote\Api\DeleteQuoteDescriptionByIdInterface" method="execute"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

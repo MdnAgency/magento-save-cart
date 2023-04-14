@@ -1,0 +1,18 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
+?>
+
+<form method="post" action="/mdnsavecart/savecart">
+    <span>Name</span>
+    <input type="text" name="name" required>
+    <span>Description</span>
+    <input type="text" name="description">
+    <input type="hidden" name="quote_id" value="<?php try {
+    echo $block->getActiveQuote();
+} catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+} ?>">
+    <button type="submit">Save your cart</button>
+</form>
+
+
+

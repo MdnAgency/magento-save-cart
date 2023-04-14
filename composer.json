@@ -1,0 +1,21 @@
+{
+  "name": "maisondunet/module-save-quote",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-quote": "101.2.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Maisondunet\\SaveQuote\\": ""
+    }
+  }
+}

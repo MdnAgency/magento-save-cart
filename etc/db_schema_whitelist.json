@@ -1,0 +1,15 @@
+{
+  "quote_description": {
+    "column": {
+      "quote_description_id": true,
+      "name": true,
+      "description": true
+    },
+    "index": {
+      "QUOTE_DESCRIPTION_QUOTE_DESCRIPTION_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  }
+}

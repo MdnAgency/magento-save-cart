@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Maisondunet_SaveQuote::management" sortOrder="100" title="Quote Description Management"
+             module="Maisondunet_SaveQuote" parent="Magento_AdminNotification::system_adminnotification"
+             resource="Maisondunet_SaveQuote::management" translate="title"
+             action="quote_description/quotedescription/index"/>
+    </menu>
+</config>
