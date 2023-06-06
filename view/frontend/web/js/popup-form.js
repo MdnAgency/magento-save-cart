@@ -1,4 +1,4 @@
-define(['jquery', 'Magento_Ui/js/modal/modal'], function ($, modal) {
+define(["jquery", "Magento_Ui/js/modal/modal"], function ($, modal) {
     'use strict';
     $.widget('maisondunet.customWidgetPopupForm',{
         options:{

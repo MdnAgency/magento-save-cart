@@ -1,6 +1,6 @@
 <?php
 
-namespace Maisondunet\SaveQuote\Controller\SaveCart;
+namespace Maisondunet\SaveQuote\Controller\Customer;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
@@ -11,7 +11,7 @@ use Magento\Framework\Validation\ValidationException;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterfaceFactory;
 use Maisondunet\SaveQuote\Command\QuoteDescription\SaveCommand;
 
-class Index implements HttpPostActionInterface
+class Save implements HttpPostActionInterface
 {
     protected RequestInterface $request;
     private QuoteDescriptionInterfaceFactory $quoteDescriptionInterfaceFactory;

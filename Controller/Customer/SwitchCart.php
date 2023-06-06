@@ -1,22 +1,28 @@
 <?php
 
-namespace Maisondunet\SaveQuote\Controller\SwitchActiveQuote;
+namespace Maisondunet\SaveQuote\Controller\Customer;
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\Manager;
+use Magento\Framework\Url;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Quote\Api\CartManagementInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartInterface;
+use Magento\Quote\Model\Quote;
+use Magento\Quote\Model\QuoteFactory;
+use Magento\Quote\Model\QuoteRepository;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
+use Maisondunet\SaveQuote\Command\QuoteDescription\RestoreCartCommand;
 use Maisondunet\SaveQuote\Model\ResourceModel\QuoteDescriptionModel\QuoteDescriptionCollectionFactory;
 
-class Index implements HttpPostActionInterface
+class SwitchCart implements HttpPostActionInterface
 {
     private RequestInterface $request;
     private Session $session;
@@ -26,6 +32,10 @@ class Index implements HttpPostActionInterface
     private QuoteDescriptionCollectionFactory $collectionFactory;
     private Manager $manager;
     private PageFactory $pageFactory;
+    private Url $url;
+    private RestoreCartCommand $restoreCartCommand;
+    private QuoteRepository $quoteRepository;
+    private QuoteFactory $quoteFactory;
 
     public function __construct(
         RequestInterface                  $request,
@@ -36,6 +46,10 @@ class Index implements HttpPostActionInterface
         QuoteDescriptionCollectionFactory $collectionFactory,
         Manager                           $manager,
         PageFactory                       $pageFactory,
+        RestoreCartCommand  $restoreCartCommand,
+        Url $url,
+        QuoteRepository $quoteRepository,
+        QuoteFactory $quoteFactory,
     ) {
         $this->request = $request;
         $this->session = $session;
@@ -45,6 +59,11 @@ class Index implements HttpPostActionInterface
         $this->collectionFactory = $collectionFactory;
         $this->manager = $manager;
         $this->pageFactory = $pageFactory;
+        $this->url = $url;
+        $this->restoreCartCommand = $restoreCartCommand;
+
+        $this->quoteRepository = $quoteRepository;
+        $this->quoteFactory = $quoteFactory;
     }
 
     /**
@@ -56,30 +75,16 @@ class Index implements HttpPostActionInterface
         try {
             if ($customer != null) {
 
-                //Get current quote
-                $currentQuote = $this->cartManagement->getCartForCustomer($customer->getId());
-
-                if ($this->checkIfCurrentCartIsAlreadySave($currentQuote)) {
-                    $this->displayPopup();
-                    throw new LocalizedException(__('Your current cart is not save'));
-                }
-
                 //Get selected inactive quote
-                $inactiveQuote = $this->cartRepository->get($this->request->getParam('quote_id'));
+                $savedCart = $this->cartRepository->get($this->request->getParam('quote_id'));
 
-                //Switch
-
-                $inactiveQuote->setIsActive(true);
-                $this->cartRepository->save($inactiveQuote);
-
-                $currentQuote->setIsActive(false);
-                $this->cartRepository->save($currentQuote);
+                $merge = $this->restoreCartCommand->execute($customer, $savedCart);
             }
         } catch (LocalizedException $exception) {
             $this->manager->addErrorMessage($exception->getMessage());
         }
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $redirect->setUrl('https://app.test-magento.test/checkout/cart');
+        $redirect->setUrl($this->url->getUrl("checkout/cart"));
         return $redirect;
     }
 
@@ -96,16 +101,20 @@ class Index implements HttpPostActionInterface
         return true;
     }
 
-    private function displayPopup()
+    /**
+     * @return ResultInterface
+     */
+    private function displayPopup(): ResultInterface
     {
-        $resultPage = $this->pageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('heading'));
-
-        $block = $resultPage->getLayout()
-            ->createBlock('Maisondunet\SaveQuote\Block\SaveQuote')
-            ->setTemplate('Maisondunet_SaveQuote::PopupForm.phtml')
-            ->toHtml();
-
-        $this->getResponse()->setBody($block);
+//        $resultPage = $this->pageFactory->create();
+//        $resultPage->getConfig()->getTitle()->prepend(__('heading'));
+//
+//        $block = $resultPage->getLayout()
+//            ->createBlock('Maisondunet\SaveQuote\Block\SaveQuote')
+//            ->setTemplate('Maisondunet_SaveQuote::PopupForm.phtml')
+//            ->toHtml();
+//
+//        $this->getResponse()->setBody($block);
+        return $this->resultFactory->create(ResultFactory::TYPE_LAYOUT);
     }
 }

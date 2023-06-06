@@ -1,13 +1,13 @@
 <?php
 
-namespace Maisondunet\SaveQuote\Controller\Delete;
+namespace Maisondunet\SaveQuote\Controller\Customer;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Maisondunet\SaveQuote\Api\DeleteQuoteDescriptionByIdInterface;
 
-class Index implements HttpPostActionInterface
+class Delete implements HttpPostActionInterface
 {
     private RequestInterface $request;
     private DeleteQuoteDescriptionByIdInterface $deleteQuoteDescriptionById;
