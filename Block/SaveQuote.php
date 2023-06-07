@@ -7,10 +7,12 @@ use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Quote\Api\CartManagementInterface;
+use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionSearchResultsInterface;
 use Maisondunet\SaveQuote\Api\GetQuoteDescriptionListInterface;
 
@@ -25,8 +27,10 @@ class SaveQuote extends Template
     private RequestInterface $request;
     private FilterGroup $filterGroup;
     private PriceCurrencyInterface $priceCurrency;
+    private PostHelper $postHelper;
 
     public function __construct(
+        PostHelper $postHelper,
         Template\Context                 $context,
         Session                          $session,
         CartManagementInterface          $cartManagement,
@@ -47,6 +51,7 @@ class SaveQuote extends Template
         $this->request = $request;
         $this->filterGroup = $filterGroup;
         $this->priceCurrency = $priceCurrency;
+        $this->postHelper = $postHelper;
     }
 
     /**
@@ -85,5 +90,12 @@ class SaveQuote extends Template
     public function getFormatedPrice(Float $amount): string
     {
         return $this->priceCurrency->convertAndFormat($amount);
+    }
+
+    public function getAddActivePostData(QuoteDescriptionInterface $item): string
+    {
+        return $this->postHelper->getPostData('/mdnsavecart/customer/switchcart', [
+            "quote_id" => $item->getMaskedId()
+        ]);
     }
 }

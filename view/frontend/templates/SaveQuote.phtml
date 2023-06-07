@@ -1,18 +1,49 @@
 <?php
 /** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
 ?>
-
-<form method="post" action="/mdnsavecart/customer/save">
-    <span>Name</span>
-    <input type="text" name="name" required>
-    <span>Description</span>
-    <input type="text" name="description">
-    <input type="hidden" name="quote_id" value="<?php try {
+<div id="popup-content">
+    <form  method="post" action="/mdnsavecart/customer/save">
+        <span>Name</span>
+        <input type="text" name="name" required>
+        <span>Description</span>
+        <input type="text" name="description">
+        <input type="hidden" name="quote_id" value="<?php try {
     echo $block->getActiveQuote();
 } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
 } ?>">
-    <button type="submit">Save your cart</button>
-</form>
+        <button type="submit">Save your cart</button>
+    </form>
+</div>
 
 
+<button id="popup-form-button" data-mage-init='{"popup-form": {"target": "#popup-content"}}'>Save Your Cart</button>
 
+
+<script type="text/javascript">
+    require([
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function ($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Save Your Cart',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+
+            var popup = modal(options, $('#popup-content'));
+
+            $('#popup-form-button').on('click', function () {
+                $('#popup-content').modal('openModal');
+            });
+        })
+</script>

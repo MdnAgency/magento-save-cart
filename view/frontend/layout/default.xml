@@ -4,7 +4,7 @@
       <referenceBlock name="top.links">
           <block class="Magento\Customer\Block\Account\SortLink" name="saved-cart-top-link" after="wish-list-link">
               <arguments>
-                  <argument name="path" xsi:type="string">mdnsavecart/customer/index</argument>
+                  <argument name="path" xsi:type="string">mdnsavecart/customer</argument>
                   <argument name="label" xsi:type="string">My saved carts</argument>
               </arguments>
           </block>

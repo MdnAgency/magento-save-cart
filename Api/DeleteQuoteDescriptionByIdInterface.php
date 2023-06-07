@@ -13,7 +13,7 @@ interface DeleteQuoteDescriptionByIdInterface
 {
     /**
      * Delete QuoteDescription.
-     * @param int $entityId
+     * @param string $entityId
      * @return void
      * @throws CouldNotDeleteException
      */

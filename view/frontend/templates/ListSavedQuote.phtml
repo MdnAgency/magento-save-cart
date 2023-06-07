@@ -1,15 +1,19 @@
 <?php
 /** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
+/** @var $escaper \Magento\Framework\Escaper */
+
+/** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
+$dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
 ?>
 <h2>List of your saved carts</h2>
 <table class="data table">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Number of Items</th>
-        <th>Total price</th>
-        <th>Action</th>
+        <th class="col">Name</th>
+        <th class="col">Description</th>
+        <th class="col">Number of Items</th>
+        <th class="col">Total price</th>
+        <th class="col">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -20,17 +24,18 @@
     <?php else:
     foreach ($result->getItems() as $item): ?>
     <tr>
-        <td><?= $item->getName() ?></td>
-        <td><?= $item->getDescription() ?></td>
-        <td><?= $item->getItemsCount() ?></td>
-        <td><?= $block->getFormatedPrice($item->getGrandTotal()) ?></td>
-        <td>
-            <form method="post" action="/mdnsavecart/customer/switchcart">
-                <input type="hidden" value="<?= $item->getQuoteId() ?>" name="quote_id">
+        <td class="col"><?= $item->getName() ?></td>
+        <td class="col"><?= $item->getDescription() ?></td>
+        <td class="col"><?= $item->getItemsCount() ?></td>
+        <td class="col"><?= $block->getFormatedPrice($item->getGrandTotal()) ?></td>
+        <td class="col">
+            <a class="action cart" href="#" data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>">Add active cart</a>
+            <form method="post" action="/mdnsavecart/customer/switchcart" style="display: inline-block">
+                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
                 <button type="submit">Add active cart</button>
             </form>
-            <form method="post" action="/mdnsavecart/customer/delete">
-                <input type="hidden" value="<?= $item->getQuoteDescriptionId() ?>" name="entity_id">
+            <form method="post" action="/mdnsavecart/customer/delete" style="display: inline-block">
+                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="entity_id">
                 <button type="submit">Delete</button>
             </form>
         </td>

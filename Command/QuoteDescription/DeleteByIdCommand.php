@@ -65,9 +65,9 @@ class DeleteByIdCommand implements DeleteQuoteDescriptionByIdInterface
         try {
             /** @var QuoteDescriptionModel $model */
             $model = $this->modelFactory->create();
-            $this->resource->load($model, $entityId, QuoteDescriptionInterface::QUOTE_DESCRIPTION_ID);
+            $this->resource->load($model, $entityId, QuoteDescriptionInterface::QUOTE_ID);
 
-            if (!$model->getData(QuoteDescriptionInterface::QUOTE_DESCRIPTION_ID)) {
+            if (!$model->getData(QuoteDescriptionInterface::QUOTE_ID)) {
                 throw new NoSuchEntityException(
                     __(
                         'Could not find QuoteDescription with id: `%id`',
