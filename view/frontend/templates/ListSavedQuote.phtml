@@ -29,15 +29,17 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
         <td class="col"><?= $item->getItemsCount() ?></td>
         <td class="col"><?= $block->getFormatedPrice($item->getGrandTotal()) ?></td>
         <td class="col">
-            <a class="action cart" href="#" data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>">Add active cart</a>
-            <form method="post" action="/mdnsavecart/customer/switchcart" style="display: inline-block">
+
+            <div style="display: inline-block">
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
-                <button type="submit">Add active cart</button>
-            </form>
-            <form method="post" action="/mdnsavecart/customer/delete" style="display: inline-block">
+                <a class="action cart" href="#"
+                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>">Add active cart</a>
+                <span>|</span>
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="entity_id">
-                <button type="submit">Delete</button>
-            </form>
+                <a class="action cart" href="#"
+                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddDeletePostData($item)) ?>">Delete</a>
+            </div>
+
         </td>
     </tr>
     </tbody>

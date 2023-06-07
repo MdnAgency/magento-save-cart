@@ -98,4 +98,11 @@ class SaveQuote extends Template
             "quote_id" => $item->getMaskedId()
         ]);
     }
+
+    public function getAddDeletePostData(QuoteDescriptionInterface $item): string
+    {
+        return $this->postHelper->getPostData('/mdnsavecart/customer/delete', [
+            "entity_id" => $item->getMaskedId()
+    ]);
+    }
 }
