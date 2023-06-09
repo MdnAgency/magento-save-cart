@@ -10,7 +10,7 @@
     <body>
         <referenceContainer name="content">
             <block class="Maisondunet\SaveQuote\Block\SaveQuote"
-                   template="Maisondunet_SaveQuote::ListSavedQuote.phtml"
+                   template="Maisondunet_SaveQuote::listSavedQuote.phtml"
                    name="mdn.listsavedquote"/>
         </referenceContainer>
     </body>

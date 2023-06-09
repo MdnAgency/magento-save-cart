@@ -10,11 +10,14 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
+use Magento\Framework\Url;
 use Magento\Framework\View\Element\Template;
 use Magento\Quote\Api\CartManagementInterface;
+use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionSearchResultsInterface;
 use Maisondunet\SaveQuote\Api\GetQuoteDescriptionListInterface;
+use Maisondunet\SaveQuote\Api\GetQuoteDescriptionProductInterface;
 
 class SaveQuote extends Template
 {
@@ -28,6 +31,9 @@ class SaveQuote extends Template
     private FilterGroup $filterGroup;
     private PriceCurrencyInterface $priceCurrency;
     private PostHelper $postHelper;
+    private GetQuoteDescriptionProductInterface $getQuoteDescriptionProduct;
+    private Url $url;
+    private MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId;
 
     public function __construct(
         PostHelper $postHelper,
@@ -40,6 +46,9 @@ class SaveQuote extends Template
         SearchCriteriaBuilder            $searchCriteriaBuilder,
         RequestInterface                 $request,
         PriceCurrencyInterface           $priceCurrency,
+        GetQuoteDescriptionProductInterface $getQuoteDescriptionProduct,
+        MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
+        Url $url,
         array                            $data = []
     ) {
         parent::__construct($context, $data);
@@ -52,6 +61,9 @@ class SaveQuote extends Template
         $this->filterGroup = $filterGroup;
         $this->priceCurrency = $priceCurrency;
         $this->postHelper = $postHelper;
+        $this->getQuoteDescriptionProduct = $getQuoteDescriptionProduct;
+        $this->url = $url;
+        $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
     }
 
     /**
@@ -104,5 +116,10 @@ class SaveQuote extends Template
         return $this->postHelper->getPostData('/mdnsavecart/customer/delete', [
             "entity_id" => $item->getMaskedId()
     ]);
+    }
+
+    public function getAddViewProductDetail(string $maskId): string
+    {
+        return $this->url->getUrl('mdnsavecart/customer/view',[ "id" => $maskId]);
     }
 }

@@ -8,6 +8,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\Manager;
 use Magento\Framework\Url;
 use Magento\Quote\Api\CartRepositoryInterface;
@@ -48,6 +49,9 @@ class SwitchCart implements HttpPostActionInterface
         $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
     }
 
+    /**
+     * @throws NoSuchEntityException
+     */
     public function execute(): Redirect
     {
         $customer = $this->session->getCustomer();

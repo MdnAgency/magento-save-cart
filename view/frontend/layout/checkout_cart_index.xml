@@ -10,7 +10,7 @@
     <body>
         <referenceContainer name="checkout.cart.form.before">
             <block class="Maisondunet\SaveQuote\Block\SaveQuote"
-                   template="Maisondunet_SaveQuote::SaveQuote.phtml"
+                   template="Maisondunet_SaveQuote::saveQuote.phtml"
                    name="mdn.savequote.block"
             />
         </referenceContainer>

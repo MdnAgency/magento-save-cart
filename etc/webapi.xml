@@ -7,6 +7,12 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+<!--    <route url="/V1/quote-description/product-detail/:entityId" method="GET">-->
+<!--        <service class="Maisondunet\SaveQuote\Api\GetQuoteDescriptionProductInterface" method="execute"/>-->
+<!--        <resources>-->
+<!--            <resource ref="anonymous"/>-->
+<!--        </resources>-->
+<!--    </route>-->
     <route url="/V1/quote-description/save" method="POST">
         <service class="Maisondunet\SaveQuote\Api\SaveQuoteDescriptionInterface" method="execute"/>
         <resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="3columns">
+    <update handle="customer_account"/>
+    <update handle="checkout_cart_item_renderers"/>
+    <head>
+        <title>
+            Saved Cart Product Detail
+        </title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Maisondunet\SaveQuote\Block\ProductDetail"
+                   template="Maisondunet_SaveQuote::saveQuoteProductDetail.phtml"
+                   name="mdn.savedquoteproductdetail">
+                <block class="Maisondunet\SaveQuote\Block\Cart\Cart" name="checkout.cart.form" as="cart-items" template="Magento_Checkout::cart/form.phtml" after="cart.summary">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">Magento\Checkout\ViewModel\Cart</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                    <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+                </block>
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer"
+                       name="mdn.savedquoteproductdetail.item"
+                       template="Magento_Checkout::cart/item/default.phtml"
+                       />
+            </block>
+        </referenceContainer>
+
+        <!--<referenceBlock name="checkout.cart.item.renderers.simple" template="Maisondunet_SaveQuote::test.phtml" />-->
+    </body>
+</page>

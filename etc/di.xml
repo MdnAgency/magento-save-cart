@@ -11,5 +11,7 @@
                 type="Maisondunet\SaveQuote\Command\QuoteDescription\DeleteByIdCommand"/>
     <preference for="Maisondunet\SaveQuote\Api\Data\QuoteDescriptionSearchResultsInterface"
                 type="Maisondunet\SaveQuote\Model\QuoteDescriptionSearchResults"/>
+    <preference for="Maisondunet\SaveQuote\Api\GetQuoteDescriptionProductInterface"
+                type="Maisondunet\SaveQuote\Query\QuoteDescription\GetProductDetailListQuery"/>
 
 </config>

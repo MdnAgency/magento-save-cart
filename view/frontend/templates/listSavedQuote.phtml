@@ -20,7 +20,7 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
     <?php
     $result = $block->getCustomerSaveCart();
     if ($result === null || $result->getTotalCount() === 0): ?>
-        <p>Vous n'avez aucun panier sauvegardé</p>
+        <p>There is no saved cart</p>
     <?php else:
     foreach ($result->getItems() as $item): ?>
     <tr>
@@ -34,6 +34,9 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
                 <a class="action cart" href="#"
                    data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>">Add active cart</a>
+                <span>|</span>
+                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
+                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getMaskedId())) ?>>View</a>
                 <span>|</span>
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="entity_id">
                 <a class="action cart" href="#"

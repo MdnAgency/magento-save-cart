@@ -1,0 +1,16 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\ProductDetail */
+
+use Magento\Quote\Model\Quote\Item as CartItem;
+
+/** @var \Maisondunet\SaveQuote\Block\Cart\Cart $cartItemRenderer */
+$cartItemRenderer = $block->getChildBlock("cart-items");
+$cartItemRenderer->setQuote($block->getQuote());
+
+?>
+
+<?= $cartItemRenderer->toHtml() ?>
+
+<?php
+$cartItemRenderer->unsetQuote();
+?>
