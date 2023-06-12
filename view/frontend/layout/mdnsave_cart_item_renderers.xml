@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout.cart.item.renderers.default"/>
+    <body>
+        <referenceBlock name="mdnsave.cart.item.renderers">
+            <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.bundle"
+                   as="bundle" template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.default"
+                   as="default" template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.simple"
+                   as="simple" template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.virtual"
+                   as="virtual" template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable"
+                   name="checkout.cart.item.renderers.configurable" as="configurable"
+                   template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer"
+                   name="checkout.cart.item.renderers.downloadable" as="downloadable"
+                   template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+            <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped"
+                   name="checkout.cart.item.renderers.grouped" as="grouped"
+                   template="Maisondunet_SaveQuote::cart/item/default.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

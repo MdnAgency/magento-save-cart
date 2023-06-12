@@ -46,7 +46,6 @@ class ProductDetail extends Template
     public function getQuote(): \Magento\Quote\Api\Data\CartInterface
     {
         $quoteId = $this->maskedQuoteIdToQuoteId->execute($this->request->getParam('id'));
-        $quote = $this->cartRepository->get($quoteId);
-        return $quote;
+        return $this->cartRepository->get($quoteId);
     }
 }
