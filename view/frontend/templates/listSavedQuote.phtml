@@ -1,26 +1,26 @@
 <?php
-/** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
+/** @var $block \Maisondunet\SaveQuote\Block\ListSavedQuote */
 /** @var $escaper \Magento\Framework\Escaper */
 
 /** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
 $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
 ?>
-<h2>List of your saved carts</h2>
+<h2><?= __("List of your saved carts") ?></h2>
 <table class="data table">
     <thead>
     <tr>
-        <th class="col">Name</th>
-        <th class="col">Description</th>
-        <th class="col">Number of Items</th>
-        <th class="col">Total price</th>
-        <th class="col">Action</th>
+        <th class="col"><?=__("Name")?></th>
+        <th class="col"><?=__("Description")?></th>
+        <th class="col"><?=__("Number of Items")?></th>
+        <th class="col"><?=__("Total price")?></th>
+        <th class="col"><?=__("Action")?></th>
     </tr>
     </thead>
     <tbody>
     <?php
-    $result = $block->getCustomerSaveCart();
+    $result = $block->getCustomerSavedCartList();
     if ($result === null || $result->getTotalCount() === 0): ?>
-        <p>There is no saved cart</p>
+        <p><?=__("There is no saved cart")?></p>
     <?php else:
     foreach ($result->getItems() as $item): ?>
     <tr>
@@ -33,14 +33,14 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
             <div style="display: inline-block">
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
                 <a class="action cart" href="#"
-                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>">Add active cart</a>
+                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>"><?=__("Add active cart")?></a>
                 <span>|</span>
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
-                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getMaskedId())) ?>>View</a>
+                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getMaskedId())) ?>><?= __("View") ?></a>
                 <span>|</span>
                 <input type="hidden" value="<?= $item->getMaskedId() ?>" name="entity_id">
                 <a class="action cart" href="#"
-                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddDeletePostData($item)) ?>">Delete</a>
+                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddDeletePostData($item)) ?>"><?= __("Delete") ?></a>
             </div>
 
         </td>

@@ -138,6 +138,7 @@ class SaveCommand implements SaveQuoteDescriptionInterface
         return (int)$model->getData(QuoteDescriptionInterface::QUOTE_DESCRIPTION_ID);
     }
 
+
     /**
      * @throws NoSuchEntityException
      * @throws LocalizedException
@@ -145,6 +146,9 @@ class SaveCommand implements SaveQuoteDescriptionInterface
     private function getCustomerQuote(): CartInterface
     {
         $customer = $this->session->getCustomerData();
+        if ($customer === null) {
+            throw new LocalizedException(__('Hello guest if you want to saved your cart you have to login'));
+        }
         return $this->cartRepository->getActiveForCustomer($customer->getId(), [$customer->getStoreId()]);
     }
 

@@ -1,0 +1,11 @@
+<?php /** @var $block \Maisondunet\SaveQuote\ViewModel\CurrentCart */?>
+
+<form  method="post" action="/mdnsavecart/customer/save">
+    <span><?= __("Name") ?></span>
+    <input type="text" name="name" required>
+    <span><?= __("Description") ?></span>
+    <input type="text" name="description">
+    <input type="hidden" name="quote_id" value="<?php echo $block->getActiveQuoteId(); ?>">
+    <?= $block->getChildHtml("form_additional_field") ?>
+    <button type="submit"><?= __("Save your cart") ?></button>
+</form>

@@ -1,22 +1,25 @@
 <?php
 /** @var $block \Maisondunet\SaveQuote\Block\SaveQuote */
+/** @var $escaper \Magento\Framework\Escaper  */
+
+use Magento\Customer\Model\Url;
+
+
 ?>
 <div id="popup-content">
-    <form  method="post" action="/mdnsavecart/customer/save">
-        <span>Name</span>
-        <input type="text" name="name" required>
-        <span>Description</span>
-        <input type="text" name="description">
-        <input type="hidden" name="quote_id" value="<?php try {
-    echo $block->getActiveQuote();
-} catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-} ?>">
-        <button type="submit">Save your cart</button>
-    </form>
+    <?= $block->getChildHtml('mdn_popup_form_block') ?>
 </div>
 
+<?php if ($block->userIsLoggedIn()): ?>
+    <button id="popup-form-button" data-mage-init="<?= $escaper->escapeHtmlAttr(json_encode(["popup-form" => ["target" => "#popup-content"]]))?>">
+        <?= __("Save Your Cart") ?>
+    </button>
+<?php else: ?>
+    <a class="button" href="<?= $block->getUrl("customer/account/login", [Url::REFERER_QUERY_PARAM_NAME => base64_encode($block->getUrl("checkout/cart"))]) ?>">
+        <?= __("Save Your Cart") ?>
+    </a>
 
-<button id="popup-form-button" data-mage-init='{"popup-form": {"target": "#popup-content"}}'>Save Your Cart</button>
+<?php endif; ?>
 
 
 <script type="text/javascript">
