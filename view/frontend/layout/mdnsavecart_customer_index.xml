@@ -10,6 +10,7 @@
     <body>
         <referenceContainer name="content">
             <block class="Maisondunet\SaveQuote\Block\ListSavedQuote"
+                   ifconfig="checkout/mdn_save_cart/enable_save_cart"
                    template="Maisondunet_SaveQuote::listSavedQuote.phtml"
                    name="mdn.listsavedquote"/>
         </referenceContainer>

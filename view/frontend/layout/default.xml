@@ -2,7 +2,9 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
   <body>
       <referenceBlock name="top.links">
-          <block class="Magento\Customer\Block\Account\SortLink" name="saved-cart-top-link" after="wish-list-link">
+          <block class="Magento\Customer\Block\Account\SortLink"
+                 ifconfig="checkout/mdn_save_cart/enable_save_cart"
+                 name="saved-cart-top-link" after="wish-list-link">
               <arguments>
                   <argument name="path" xsi:type="string">mdnsavecart/customer</argument>
                   <argument name="label" xsi:type="string">My saved carts</argument>

@@ -12,11 +12,13 @@
             <block class="Maisondunet\SaveQuote\Block\SaveQuote"
                    template="Maisondunet_SaveQuote::saveQuote.phtml"
                    name="mdn.savequote.block"
+                   ifconfig="checkout/mdn_save_cart/enable_save_cart"
             >
                 <block class="Maisondunet\SaveQuote\Block\PopupForm"
                        name="mdn.savequote.block.popup.form"
                        as="mdn_popup_form_block"
                        template="Maisondunet_SaveQuote::popupForm.phtml"
+                       ifconfig="checkout/mdn_save_cart/enable_save_cart"
                 >
                     <container name="mdn.savequote.block.popup.form.additional" as="popup_form_additional_field" />
                 </block>

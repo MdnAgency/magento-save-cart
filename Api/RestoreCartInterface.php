@@ -18,7 +18,7 @@ interface RestoreCartInterface
     /**
      * @param Customer $customer
      * @param Quote $savedCart
-     * @return mixed
+     * @return CartInterface
      */
-    public function execute(Customer $customer, Quote $savedCart);
+    public function execute(Customer $customer, Quote $savedCart): CartInterface;
 }

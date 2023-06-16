@@ -14,6 +14,7 @@
 
             <block class="Maisondunet\SaveQuote\Block\ProductDetail"
                    template="Maisondunet_SaveQuote::saveQuoteProductDetail.phtml"
+                   ifconfig="checkout/mdn_save_cart/enable_save_cart"
                    name="mdn.savedquoteproductdetail">
 
                 <block class="Maisondunet\SaveQuote\Block\Cart\Cart"

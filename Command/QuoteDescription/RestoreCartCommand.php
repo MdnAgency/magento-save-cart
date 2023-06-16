@@ -6,6 +6,7 @@ use Magento\Customer\Model\Customer;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartManagementInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\Quote;
 use Maisondunet\SaveQuote\Api\RestoreCartInterface;
 
@@ -26,7 +27,7 @@ class RestoreCartCommand implements RestoreCartInterface
      * @inheritDoc
      * @throws NoSuchEntityException
      */
-    public function execute(Customer $customer, Quote $savedCart)
+    public function execute(Customer $customer, Quote $savedCart): CartInterface
     {
         $currentCart = $this->cartManagement->getCartForCustomer($customer->getId());
 
