@@ -1,14 +1,14 @@
 {
   "name": "maisondunet/module-save-quote",
   "version": "1.0.0",
-  "description": "N/A",
+  "description": "A module that allow user to save a cart",
   "type": "magento2-module",
   "require": {
     "magento/framework": "*",
     "magento/module-quote": "101.2.*"
   },
   "license": [
-    "Proprietary"
+    "OSL-3.0"
   ],
   "autoload": {
     "files": [
