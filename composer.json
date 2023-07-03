@@ -1,5 +1,5 @@
 {
-  "name": "maisondunet/module-save-cart",
+  "name": "maisondunet/module-save-quote",
   "description": "A module that allow user to save a cart",
   "type": "magento2-module",
   "require": {
