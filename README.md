@@ -10,11 +10,11 @@ Users can manage their saved cart in the user account section.
 
 The module can be enable or disable via admin magento admin panel  
 
----  
+
 ## Compatibility  
 This module has been tested with Magento 2.4.5 
 
----
+
 ## Installation  
 To Install the Magento2 Save Cart module:  
 ```
@@ -24,13 +24,13 @@ To enable the module:
 ```
 bin/magento module:enable Maisondunet_SaveQuote
 ```  
----
+
 
 ## Module configuration  
 Module configuration is located at:  
 Stores > Configuration > Sales > Checkout > Save Cart  
 
----
+
 
 ## How it works  
 
@@ -49,5 +49,7 @@ User can find his saved cart in his account section by clicking on "My Saved Car
 User can add a saved cart in his current cart. If the current cart contains items, the module merges the two carts in the current cart.  
 
 
+### Hyva Theme Compatibility  
 
+We have also created module compatibility for Hÿva Theme available here 
 

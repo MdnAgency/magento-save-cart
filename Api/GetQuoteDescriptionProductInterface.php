@@ -2,7 +2,7 @@
 
 namespace Maisondunet\SaveQuote\Api;
 
-use Magento\Quote\Model\Quote;
+
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 
 /**
@@ -13,8 +13,8 @@ use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 interface GetQuoteDescriptionProductInterface
 {
     /**
-     * @param  Magento\Quote\Model\Quote $quote
-     * @return mixed
+     * @param  string $quoteMaskedId
+     * @return \Magento\Quote\Api\Data\CartItemInterface[]
      */
-    public function execute(Quote $quote);
+    public function execute(string $quoteMaskedId);
 }
