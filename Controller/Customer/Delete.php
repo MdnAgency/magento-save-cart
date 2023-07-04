@@ -11,6 +11,7 @@ use Magento\Framework\Url;
 use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
 use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
 use Maisondunet\SaveQuote\Api\DeleteQuoteDescriptionByIdInterface;
+use Maisondunet\SaveQuote\Query\QuoteDescription\QuoteDescriptionIdToQuoteId;
 
 class Delete implements HttpPostActionInterface
 {
@@ -18,20 +19,20 @@ class Delete implements HttpPostActionInterface
     private DeleteQuoteDescriptionByIdInterface $deleteQuoteDescriptionById;
     private ResultFactory $resultFactory;
     private Url $url;
-    private MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId;
+    private QuoteDescriptionIdToQuoteId $quoteId;
 
     public function __construct(
         RequestInterface                    $request,
         DeleteQuoteDescriptionByIdInterface $deleteQuoteDescriptionById,
         ResultFactory                       $resultFactory,
+        QuoteDescriptionIdToQuoteId $quoteId,
         Url $url,
-        MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
     ) {
         $this->request = $request;
         $this->deleteQuoteDescriptionById = $deleteQuoteDescriptionById;
         $this->resultFactory = $resultFactory;
         $this->url = $url;
-        $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
+        $this->quoteId = $quoteId;
     }
 
     /**
@@ -40,8 +41,8 @@ class Delete implements HttpPostActionInterface
      */
     public function execute()
     {
-        $entityId = $this->maskedQuoteIdToQuoteId->execute($this->request->getParam('entity_id'));
-        $this->deleteQuoteDescriptionById->execute($entityId);
+        $quoteDescriptionId = $this->request->getParam('entity_id');
+        $this->deleteQuoteDescriptionById->execute($this->quoteId->execute($quoteDescriptionId));
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $redirect->setUrl($this->url->getUrl('mdnsavecart/customer'));
         return $redirect;

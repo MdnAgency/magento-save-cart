@@ -70,19 +70,19 @@ class ListSavedQuote extends Template
     public function getAddActivePostData(QuoteDescriptionInterface $item): string
     {
         return $this->postHelper->getPostData('/mdnsavecart/customer/switchcart', [
-            "quote_id" => $item->getMaskedId()
+            "quote_id" => $item->getQuoteDescriptionId()
         ]);
     }
 
     public function getAddDeletePostData(QuoteDescriptionInterface $item): string
     {
         return $this->postHelper->getPostData('/mdnsavecart/customer/delete', [
-            "entity_id" => $item->getMaskedId()
+            "entity_id" => $item->getQuoteDescriptionId()
         ]);
     }
 
-    public function getAddViewProductDetail(string $maskId): string
+    public function getAddViewProductDetail(string $quoteDescriptionId): string
     {
-        return $this->url->getUrl('mdnsavecart/customer/view', [ "id" => $maskId]);
+        return $this->url->getUrl('mdnsavecart/customer/view', [ "id" => $quoteDescriptionId]);
     }
 }

@@ -6,6 +6,14 @@
 $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
 ?>
 <h2><?= __("List of your saved carts") ?></h2>
+
+<?php
+$result = $block->getCustomerSavedCartList();
+if ($result === null || $result->getTotalCount() === 0): ?>
+<p><?=__("There is no saved cart")?></p>
+
+<?php else: ?>
+
 <table class="data table">
     <thead>
     <tr>
@@ -17,12 +25,8 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
     </tr>
     </thead>
     <tbody>
-    <?php
-    $result = $block->getCustomerSavedCartList();
-    if ($result === null || $result->getTotalCount() === 0): ?>
-        <p><?=__("There is no saved cart")?></p>
-    <?php else:
-    foreach ($result->getItems() as $item): ?>
+
+    <?php foreach ($result->getItems() as $item): ?>
     <tr>
         <td class="col"><?= $item->getName() ?></td>
         <td class="col"><?= $item->getDescription() ?></td>
@@ -31,14 +35,11 @@ $dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class
         <td class="col">
 
             <div style="display: inline-block">
-                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
                 <a class="action cart" href="#"
                    data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>"><?=__("Add active cart")?></a>
                 <span>|</span>
-                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="quote_id">
-                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getMaskedId())) ?>><?= __("View") ?></a>
+                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getQuoteDescriptionId())) ?>><?= __("View") ?></a>
                 <span>|</span>
-                <input type="hidden" value="<?= $item->getMaskedId() ?>" name="entity_id">
                 <a class="action cart" href="#"
                    data-post="<?= $escaper->escapeHtmlAttr($block->getAddDeletePostData($item)) ?>"><?= __("Delete") ?></a>
             </div>

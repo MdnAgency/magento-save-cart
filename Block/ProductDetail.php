@@ -5,31 +5,30 @@ namespace Maisondunet\SaveQuote\Block;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Quote\Api\CartRepositoryInterface;
-use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
-use Magento\Quote\Model\Quote;
 use Maisondunet\SaveQuote\Api\GetQuoteDescriptionProductInterface;
+use Maisondunet\SaveQuote\Query\QuoteDescription\QuoteDescriptionIdToQuoteId;
 
 class ProductDetail extends Template
 {
     private RequestInterface $request;
     private GetQuoteDescriptionProductInterface $getQuoteDescriptionProduct;
-    private MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId;
     private CartRepositoryInterface $cartRepository;
+    private QuoteDescriptionIdToQuoteId $quoteId;
 
     public function __construct(
         Template\Context $context,
         RequestInterface $request,
         GetQuoteDescriptionProductInterface $getQuoteDescriptionProduct,
-        MaskedQuoteIdToQuoteId $maskedQuoteIdToQuoteId,
         CartRepositoryInterface $cartRepository,
+        QuoteDescriptionIdToQuoteId $quoteId,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->request = $request;
         $this->getQuoteDescriptionProduct = $getQuoteDescriptionProduct;
-        $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
         $this->cartRepository = $cartRepository;
+        $this->quoteId = $quoteId;
     }
 
     /**
@@ -38,7 +37,7 @@ class ProductDetail extends Template
      */
     public function getQuote(): \Magento\Quote\Api\Data\CartInterface
     {
-        $quoteId = $this->maskedQuoteIdToQuoteId->execute($this->request->getParam('id'));
-        return $this->cartRepository->get($quoteId);
+        $quoteDescriptionId = $this->request->getParam('id');
+        return $this->cartRepository->get($this->quoteId->execute($quoteDescriptionId));
     }
 }

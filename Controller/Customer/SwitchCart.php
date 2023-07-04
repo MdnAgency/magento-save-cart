@@ -12,9 +12,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\Manager;
 use Magento\Framework\Url;
 use Magento\Quote\Api\CartRepositoryInterface;
-use Magento\Quote\Model\MaskedQuoteIdToQuoteIdInterface;
 use Maisondunet\SaveQuote\Command\QuoteDescription\RestoreCartCommand;
-
+use Maisondunet\SaveQuote\Query\QuoteDescription\QuoteDescriptionIdToQuoteId;
 
 class SwitchCart implements HttpPostActionInterface
 {
@@ -25,8 +24,7 @@ class SwitchCart implements HttpPostActionInterface
     private Manager $manager;
     private Url $url;
     private RestoreCartCommand $restoreCartCommand;
-    private MaskedQuoteIdToQuoteIdInterface $maskedQuoteIdToQuoteId;
-
+    private QuoteDescriptionIdToQuoteId $quoteId;
 
     public function __construct(
         RequestInterface                  $request,
@@ -36,8 +34,7 @@ class SwitchCart implements HttpPostActionInterface
         Manager                           $manager,
         RestoreCartCommand  $restoreCartCommand,
         Url $url,
-        MaskedQuoteIdToQuoteIdInterface $maskedQuoteIdToQuoteId,
-
+        QuoteDescriptionIdToQuoteId $quoteId,
     ) {
         $this->request = $request;
         $this->session = $session;
@@ -46,7 +43,7 @@ class SwitchCart implements HttpPostActionInterface
         $this->manager = $manager;
         $this->url = $url;
         $this->restoreCartCommand = $restoreCartCommand;
-        $this->maskedQuoteIdToQuoteId = $maskedQuoteIdToQuoteId;
+        $this->quoteId = $quoteId;
     }
 
     /**
@@ -55,7 +52,8 @@ class SwitchCart implements HttpPostActionInterface
     public function execute(): Redirect
     {
         $customer = $this->session->getCustomer();
-        $quoteId = $this->maskedQuoteIdToQuoteId->execute($this->request->getParam('quote_id'));
+        $quoteDescriptionId = $this->request->getParam('quote_id');
+        $quoteId = $this->quoteId->execute($quoteDescriptionId);
         try {
             if ($customer != null) {
 

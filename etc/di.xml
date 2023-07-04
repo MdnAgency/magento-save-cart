@@ -14,4 +14,8 @@
     <preference for="Maisondunet\SaveQuote\Api\GetQuoteDescriptionProductInterface"
                 type="Maisondunet\SaveQuote\Query\QuoteDescription\GetProductDetailListQuery"/>
 
+    <type name="Magento\Sales\Model\ResourceModel\Collection\ExpiredQuotesCollection">
+        <plugin name="mdn_save_quote_exclude_from_expired_collection"
+                type="Maisondunet\SaveQuote\Plugin\AfterExpiredQuotesCollection"/>
+    </type>
 </config>

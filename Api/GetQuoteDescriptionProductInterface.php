@@ -13,8 +13,8 @@ use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 interface GetQuoteDescriptionProductInterface
 {
     /**
-     * @param  string $quoteMaskedId
+     * @param  int $quoteId
      * @return \Magento\Quote\Api\Data\CartItemInterface[]
      */
-    public function execute(string $quoteMaskedId);
+    public function execute(int $quoteId);
 }

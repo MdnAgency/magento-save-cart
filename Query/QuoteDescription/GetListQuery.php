@@ -82,14 +82,6 @@ class GetListQuery implements GetQuoteDescriptionListInterface
                 'items_count' => 'items_count',
                 'grand_total' => 'grand_total'
             ]
-        )->join(
-            [
-                'quote_id_mask' => $collection->getTable('quote_id_mask')
-            ],
-            'main_table.quote_id = quote_id_mask.quote_id',
-            [
-                'masked_id' => 'masked_id'
-            ]
         );
 
         $collection->addFilter('is_active', false);
