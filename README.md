@@ -44,6 +44,10 @@ When user save cart, a new empty cart is created for current cart.
 
 User can find his saved cart in his account section by clicking on "My Saved Carts"  
 
+Easily manage your carts from your cart list. Add cart to current one, view product details or delete saved cart.
+
+![](/home/camille/Images/Captures d’écran/Capture cart module magento2.png)
+
 ### Merge Strategy  
 
 User can add a saved cart in his current cart. If the current cart contains items, the module merges the two carts in the current cart.  
@@ -52,3 +56,6 @@ User can add a saved cart in his current cart. If the current cart contains item
 ### Hyva Theme Compatibility  
 
 We have also created module compatibility for Hÿva Theme available [Here](https://github.com/MdnAgency/magento-hyva-save-cart)
+
+## Who are we ?
+If you want to discover the [Mdn-Agency](https://maisondunet.com/)

@@ -39,7 +39,7 @@ class AfterExpiredQuotesCollection
             "quote_description.quote_id",
             ['null' => true]
         );
-        dump($expiredQuoteCollection->getSelect()->assemble());
+
         return $expiredQuoteCollection;
     }
 }
