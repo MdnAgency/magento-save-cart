@@ -46,7 +46,6 @@ User can find his saved cart in his account section by clicking on "My Saved Car
 
 Easily manage your carts from your cart list. Add cart to current one, view product details or delete saved cart.
 
-![](/home/camille/Images/Captures d’écran/Capture cart module magento2.png)
 
 ### Merge Strategy  
 
