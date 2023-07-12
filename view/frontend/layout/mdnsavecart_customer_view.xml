@@ -17,6 +17,15 @@
                    ifconfig="checkout/mdn_save_cart/enable_save_cart"
                    name="mdn.savedquoteproductdetail">
 
+                <block name="mdn.button.action.restore" class="Maisondunet\SaveQuote\Block\Button\RestoreButton" template="Maisondunet_SaveQuote::button/action/large.phtml"
+                before="mdn.savedquoteproductdetail">
+                    <arguments>
+                        <argument name="class" xsi:type="string"> action cart</argument>
+                        <argument name="title" xsi:type="string" translate="true">Restore</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template" template="Maisondunet_SaveQuote::button/icons/restore.phtml" name="mdn.button.icon.restore" as="button-icon" />
+                </block>
+
                 <block class="Maisondunet\SaveQuote\Block\Cart\Cart"
                        name="checkout.cart.form"
                        as="cart-items"

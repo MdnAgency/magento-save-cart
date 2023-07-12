@@ -1,0 +1,19 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\Button\ButtonAction */
+/** @var $escaper \Magento\Framework\Escaper */
+
+?>
+
+<?php  if ($block->isPost()): ?>
+<a
+    class="action cart" href="#"
+    data-post="<?= $escaper->escapeHtmlAttr($block->createAction()) ?>">
+    <?= $block->getChildHtml('button-icon') ?>
+</a>
+<?php else: ?>
+<a
+    class="action cart"
+    href="<?= $escaper->escapeHtmlAttr($block->createAction()) ?>">
+    <?= $block->getChildHtml('button-icon') ?>
+</a>
+<?php endif; ?>

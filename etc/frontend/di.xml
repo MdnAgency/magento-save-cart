@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="Maisondunet\SaveQuote\Block\Button\RestoreButton"
+                 type="Maisondunet\SaveQuote\Block\Button\ButtonAction">
+        <arguments>
+            <argument name="buttonAction" xsi:type="object">Maisondunet\SaveQuote\Model\Button\ButtonActionRestore
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Maisondunet\SaveQuote\Block\Button\DeleteButton"
+                 type="Maisondunet\SaveQuote\Block\Button\ButtonAction">
+        <arguments>
+            <argument name="buttonAction" xsi:type="object">Maisondunet\SaveQuote\Model\Button\ButtonActionDelete
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Maisondunet\SaveQuote\Block\Button\ViewButton"
+                 type="Maisondunet\SaveQuote\Block\Button\ButtonAction">
+        <arguments>
+            <argument name="buttonAction" xsi:type="object">Maisondunet\SaveQuote\Model\Button\ButtonActionView
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+</config>

@@ -52,7 +52,7 @@ class SwitchCart implements HttpPostActionInterface
     public function execute(): Redirect
     {
         $customer = $this->session->getCustomer();
-        $quoteDescriptionId = $this->request->getParam('quote_id');
+        $quoteDescriptionId = $this->request->getParam('id');
         $quoteId = $this->quoteId->execute($quoteDescriptionId);
         try {
             if ($customer != null) {

@@ -35,13 +35,24 @@ if ($result === null || $result->getTotalCount() === 0): ?>
         <td class="col">
 
             <div style="display: inline-block">
-                <a class="action cart" href="#"
-                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddActivePostData($item)) ?>"><?=__("Add active cart")?></a>
-                <span>|</span>
-                <a class="action cart" href=<?= $escaper->escapeHtmlAttr($block->getAddViewProductDetail($item->getQuoteDescriptionId())) ?>><?= __("View") ?></a>
-                <span>|</span>
-                <a class="action cart" href="#"
-                   data-post="<?= $escaper->escapeHtmlAttr($block->getAddDeletePostData($item)) ?>"><?= __("Delete") ?></a>
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.view');
+                $button->setQuoteDescription($item);
+                ?>
+                <?= $button->toHtml() ?>
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.restore');
+                $button->setQuoteDescription($item);
+                ?>
+                <?= $button->toHtml() ?>
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.delete');
+                $button->setQuoteDescription($item);
+                ?>
+                <?= $button->toHtml() ?>
             </div>
 
         </td>

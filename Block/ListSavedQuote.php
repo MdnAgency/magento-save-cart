@@ -67,22 +67,8 @@ class ListSavedQuote extends Template
         return $this->priceCurrency->convertAndFormat($amount);
     }
 
-    public function getAddActivePostData(QuoteDescriptionInterface $item): string
+    public function getAddViewProductDetail(QuoteDescriptionInterface $item): string
     {
-        return $this->postHelper->getPostData('/mdnsavecart/customer/switchcart', [
-            "quote_id" => $item->getQuoteDescriptionId()
-        ]);
-    }
-
-    public function getAddDeletePostData(QuoteDescriptionInterface $item): string
-    {
-        return $this->postHelper->getPostData('/mdnsavecart/customer/delete', [
-            "entity_id" => $item->getQuoteDescriptionId()
-        ]);
-    }
-
-    public function getAddViewProductDetail(string $quoteDescriptionId): string
-    {
-        return $this->url->getUrl('mdnsavecart/customer/view', [ "id" => $quoteDescriptionId]);
+        return $this->url->getUrl('mdnsavecart/customer/view', [ "id" => $item->getQuoteDescriptionId()]);
     }
 }

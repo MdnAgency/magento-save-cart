@@ -41,7 +41,7 @@ class Delete implements HttpPostActionInterface
      */
     public function execute()
     {
-        $quoteDescriptionId = $this->request->getParam('entity_id');
+        $quoteDescriptionId = $this->request->getParam('id');
         $this->deleteQuoteDescriptionById->execute($this->quoteId->execute($quoteDescriptionId));
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $redirect->setUrl($this->url->getUrl('mdnsavecart/customer'));

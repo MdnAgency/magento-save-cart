@@ -1,0 +1,14 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\Button\ButtonAction */
+/** @var $escaper \Magento\Framework\Escaper */
+
+/** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
+$dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
+?>
+
+<a
+    class="action cart subscribe primary"
+    href="#"
+    data-post="<?= $escaper->escapeHtmlAttr($block->createAction()) ?>">
+    <?= '<span>' . $block->getChildHtml('button-icon') . '</span>' . '<span>' . $block->getTitle() . '</span>' ?>
+</a>

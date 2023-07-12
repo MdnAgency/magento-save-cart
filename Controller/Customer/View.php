@@ -3,6 +3,7 @@
 namespace Maisondunet\SaveQuote\Controller\Customer;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
 
 class View implements HttpGetActionInterface

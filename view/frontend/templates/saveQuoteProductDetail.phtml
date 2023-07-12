@@ -2,12 +2,21 @@
 /** @var $block \Maisondunet\SaveQuote\Block\ProductDetail */
 
 use Magento\Quote\Model\Quote\Item as CartItem;
+use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 
 /** @var \Maisondunet\SaveQuote\Block\Cart\Cart $cartItemRenderer */
 $cartItemRenderer = $block->getChildBlock("cart-items");
 $cartItemRenderer->setQuote($block->getQuote());
 
 ?>
+
+<h2><?= __("Name: ") . $block->getQuoteDescription()->getName() ?></h2>
+<?php
+/** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+$button = $block->getChildBlock('mdn.button.action.restore');
+$button->setQuoteDescription($block->getQuoteDescription());
+?>
+<?= $button->toHtml() ?>
 
 <?= $cartItemRenderer->toHtml() ?>
 

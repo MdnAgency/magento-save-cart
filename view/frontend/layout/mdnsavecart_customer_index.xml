@@ -14,7 +14,34 @@
                    template="Maisondunet_SaveQuote::listSavedQuote.phtml"
                    name="mdn.listsavedquote"
                    cacheable="false"
-            />
+            >
+                <block name="mdn.button.action.restore"
+                       class="Maisondunet\SaveQuote\Block\Button\RestoreButton"
+                       template="Maisondunet_SaveQuote::button/action/small.phtml" >
+                    <arguments>
+                        <argument name="class" xsi:type="string" translate="true">action cart</argument>
+                        <argument name="title" xsi:type="string" translate="true">Restore</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template" template="Maisondunet_SaveQuote::button/icons/restore.phtml" name="mdn.button.icon.restore" as="button-icon" />
+                </block>
+
+                <block name="mdn.button.action.delete" class="Maisondunet\SaveQuote\Block\Button\DeleteButton" template="Maisondunet_SaveQuote::button/action/small.phtml" >
+                    <arguments>
+                        <argument name="class" xsi:type="string" translate="true">action cart</argument>
+                        <argument name="title" xsi:type="string" translate="true">Delete</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template" template="Maisondunet_SaveQuote::button/icons/delete.phtml" name="mdn.button.icon.delete" as="button-icon" />
+                </block>
+
+                <block name="mdn.button.action.view" class="Maisondunet\SaveQuote\Block\Button\ViewButton" template="Maisondunet_SaveQuote::button/action/small.phtml" >
+                    <arguments>
+                        <argument name="class" xsi:type="string">action cart</argument>
+                        <argument name="title" xsi:type="string">View</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template" template="Maisondunet_SaveQuote::button/icons/view.phtml" name="mdn.button.icon.view" as="button-icon" />
+                </block>
+
+            </block>
         </referenceContainer>
     </body>
 </page>
