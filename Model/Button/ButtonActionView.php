@@ -13,7 +13,7 @@ class ButtonActionView implements \Maisondunet\SaveQuote\Api\Button\ButtonAction
 
     public function __construct(
         Url $url,
-        PostHelper $postHelper,
+        PostHelper $postHelper
     ) {
         $this->url = $url;
         $this->postHelper = $postHelper;

@@ -13,7 +13,7 @@ class QuoteDescriptionIdToQuoteId
 
     public function __construct(
         QuoteDescriptionResource     $quoteDescriptionResourceFactory,
-        QuoteDescriptionModelFactory $quoteDescriptionModelFactory,
+        QuoteDescriptionModelFactory $quoteDescriptionModelFactory
     ) {
         $this->quoteDescriptionResource = $quoteDescriptionResourceFactory;
         $this->quoteDescriptionModelFactory = $quoteDescriptionModelFactory;

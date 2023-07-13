@@ -26,7 +26,7 @@ class Delete implements HttpPostActionInterface
         DeleteQuoteDescriptionByIdInterface $deleteQuoteDescriptionById,
         ResultFactory                       $resultFactory,
         QuoteDescriptionIdToQuoteId $quoteId,
-        Url $url,
+        Url $url
     ) {
         $this->request = $request;
         $this->deleteQuoteDescriptionById = $deleteQuoteDescriptionById;

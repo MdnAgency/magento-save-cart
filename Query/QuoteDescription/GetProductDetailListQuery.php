@@ -11,7 +11,7 @@ class GetProductDetailListQuery implements GetQuoteDescriptionProductInterface
     private CartRepositoryInterface $cartRepository;
 
     public function __construct(
-        CartRepositoryInterface $cartRepository,
+        CartRepositoryInterface $cartRepository
     ) {
         $this->cartRepository = $cartRepository;
     }

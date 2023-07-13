@@ -69,7 +69,7 @@ class SaveCommand implements SaveQuoteDescriptionInterface
         CartRepositoryInterface      $cartRepository,
         CartManagementInterface      $cartManagement,
         QuoteRepository              $quoteRepository,
-        QuoteDescriptionFormValidation $formValidation,
+        QuoteDescriptionFormValidation $formValidation
     ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;

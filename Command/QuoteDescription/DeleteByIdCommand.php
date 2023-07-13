@@ -48,7 +48,7 @@ class DeleteByIdCommand implements DeleteQuoteDescriptionByIdInterface
         QuoteDescriptionModelFactory $modelFactory,
         QuoteDescriptionResource     $resource,
         QuoteRepository $quoteRepository,
-        CartRepositoryInterface $cartRepository,
+        CartRepositoryInterface $cartRepository
     ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;

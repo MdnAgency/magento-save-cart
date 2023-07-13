@@ -27,7 +27,7 @@ class Save implements HttpPostActionInterface
         RequestInterface                 $request,
         ResultFactory                    $resultFactory,
         Manager                          $manager,
-        Url $url,
+        Url $url
     ) {
         $this->request = $request;
         $this->quoteDescriptionInterfaceFactory = $quoteDescriptionInterfaceFactory;

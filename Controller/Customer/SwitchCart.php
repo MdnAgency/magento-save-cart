@@ -34,7 +34,7 @@ class SwitchCart implements HttpPostActionInterface
         Manager                           $manager,
         RestoreCartCommand  $restoreCartCommand,
         Url $url,
-        QuoteDescriptionIdToQuoteId $quoteId,
+        QuoteDescriptionIdToQuoteId $quoteId
     ) {
         $this->request = $request;
         $this->session = $session;

@@ -17,7 +17,7 @@ class GetQuoteDescriptionInterface
     public function __construct(
         QuoteDescriptionResource         $quoteDescriptionResourceFactory,
         QuoteDescriptionModelFactory     $quoteDescriptionModelFactory,
-        QuoteDescriptionInterfaceFactory $descriptionInterfaceFactory,
+        QuoteDescriptionInterfaceFactory $descriptionInterfaceFactory
     ) {
         $this->quoteDescriptionResourceFactory = $quoteDescriptionResourceFactory;
         $this->quoteDescriptionModelFactory = $quoteDescriptionModelFactory;

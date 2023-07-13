@@ -10,7 +10,7 @@ class ButtonActionDelete implements \Maisondunet\SaveQuote\Api\Button\ButtonActi
     private PostHelper $postHelper;
 
     public function __construct(
-        PostHelper $postHelper,
+        PostHelper $postHelper
     )
     {
         $this->postHelper = $postHelper;
