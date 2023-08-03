@@ -9,9 +9,11 @@ use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Url;
 use Magento\Framework\View\Element\Template;
+use Magento\Quote\Api\CartRepositoryInterface;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionSearchResultsInterface;
 use Maisondunet\SaveQuote\Api\GetQuoteDescriptionListInterface;
+use Maisondunet\SaveQuote\Query\QuoteDescription\QuoteDescriptionIdToQuoteId;
 
 class ListSavedQuote extends Template
 {
@@ -22,6 +24,8 @@ class ListSavedQuote extends Template
     private PriceCurrencyInterface $priceCurrency;
     private PostHelper $postHelper;
     private Url $url;
+    private QuoteDescriptionIdToQuoteId $quoteId;
+    private CartRepositoryInterface $cartRepository;
 
     public function __construct(
         Template\Context $context,
@@ -32,6 +36,8 @@ class ListSavedQuote extends Template
         PriceCurrencyInterface           $priceCurrency,
         PostHelper $postHelper,
         Url $url,
+        QuoteDescriptionIdToQuoteId $quoteId,
+        CartRepositoryInterface $cartRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -41,6 +47,8 @@ class ListSavedQuote extends Template
         $this->list = $list;
         $this->priceCurrency = $priceCurrency;
         $this->postHelper = $postHelper;
+        $this->quoteId = $quoteId;
+        $this->cartRepository = $cartRepository;
         $this->url = $url;
     }
 
@@ -70,5 +78,9 @@ class ListSavedQuote extends Template
     public function getAddViewProductDetail(QuoteDescriptionInterface $item): string
     {
         return $this->url->getUrl('mdnsavecart/customer/view', [ "id" => $item->getQuoteDescriptionId()]);
+    }
+    public function getQuote(QuoteDescriptionInterface $quoteDescription) {
+        $id = $quoteDescription->getQuoteDescriptionId();
+        return $this->cartRepository->get($this->quoteId->execute($id));
     }
 }
