@@ -1,0 +1,13 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\Button\ButtonAction */
+/** @var $escaper \Magento\Framework\Escaper */
+
+/** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
+$dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
+?>
+
+<div class="inline-block text-sm underline text-secondary-darker"
+   :class="{'opacity-50': loading}">
+    <?= $block->getChildHtml('button-icon') ?>
+</div>
+

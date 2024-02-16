@@ -1,0 +1,12 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\Button\ButtonAction */
+/** @var $escaper \Magento\Framework\Escaper */
+
+/** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
+$dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
+?>
+
+<div class="inline-flex shrink-0 ml-auto xl:mt-0 btn btn-primary"
+     :class="{'opacity-50': loading}">
+    <?= '<span>' . $block->getChildHtml('button-icon') . '</span>' . '<span>' . $block->getTitle() . '</span>' ?>
+</div>

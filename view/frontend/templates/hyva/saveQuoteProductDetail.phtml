@@ -1,0 +1,58 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\ProductDetail */
+/** @var $escaper \Magento\Framework\Escaper */
+use Magento\Quote\Model\Quote\Item as CartItem;
+use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
+
+/** @var \Maisondunet\SaveQuote\Block\Cart\Cart $cartItemRenderer */
+$cartItemRenderer = $block->getChildBlock("cart-items");
+$cartItemRenderer->setQuote($block->getQuote());
+
+?>
+
+<h2><?= __("Name: ") . $block->getQuoteDescription()->getName() ?></h2>
+<div x-data="mdnSavedCartList()">
+
+    <?php
+    /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+    $button = $block->getChildBlock('mdn.button.action.restore');
+    $button->setQuoteDescription($block->getQuoteDescription());
+    ?>
+    <a class="inline-block text-sm underline text-secondary-darker p-2" href="#"
+       :class="{'opacity-50': loading}"
+       @click="restoreToCart(<?= $escaper->escapeHtmlAttr($button->createAction()) ?>)">
+        <?= $button->toHtml() ?>
+    </a>
+
+<?= $cartItemRenderer->toHtml() ?>
+
+<?php
+$cartItemRenderer->unsetQuote();
+?>
+</div>
+<script type="application/javascript">
+
+    function mdnSavedCartList() {
+
+        return {
+            loading: false,
+            async restoreToCart(action) {
+                this.loading = true;
+                let formData = new FormData();
+                formData.append("id", action.data.id);
+                formData.append("form_key", hyva.getFormKey());
+                const res = await fetch(
+                    action.action,
+                    {
+                        method: 'post',
+                        body: formData
+                    }
+                );
+
+                if (res.redirected === true) {
+                    window.location = res.url;
+                }
+            },
+        };
+    }
+</script>

@@ -1,0 +1,46 @@
+<?php
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Magento\Customer\Model\Url;
+use Magento\Framework\Escaper;
+use Maisondunet\SaveQuote\Block\SaveQuote;
+
+/** @var $block SaveQuote */
+/** @var $escaper Escaper */
+
+/** @var ViewModelRegistry $viewModels */
+/** @var \Hyva\Theme\ViewModel\Modal $modalViewModel */
+$modalViewModel = $viewModels->require(\Hyva\Theme\ViewModel\Modal::class);
+$modal = $modalViewModel->createModal()->withBlockName("mdn.savequote.block.popup.form");
+?>
+
+
+<div id="popup-content" x-data="{
+            ...hyva.modal(),
+            isLoggedIn: false,
+            onPrivateContentLoaded: function(data) {
+                this.isLoggedIn = data.customer && data.customer.firstname
+            },
+            onClick: function() {
+                this.isLoggedIn ? this.show() : window.dispatchEvent(new CustomEvent('toggle-authentication',{detail: {url: '/checkout/cart/'}}));
+            }
+        }
+    "
+     @private-content-loaded.window="onPrivateContentLoaded($event.detail.data)"
+>
+    <?= $modal ?>
+
+
+    <button x-show="isLoggedIn" class="btn btn-primary hover:bg-blue-500"
+            @click="<?= $escaper->escapeHtmlAttr($modal->getShowJs()) ?>"
+            type="button">
+        <?= __("Save Your Cart") ?>
+    </button>
+    <a x-show="!isLoggedIn" class="btn btn-primary rounded inline-block"
+       href="<?= $block->getUrl("customer/account/login", [Url::REFERER_QUERY_PARAM_NAME => base64_encode($block->getUrl("checkout/cart"))]) ?>"
+      @click.prevent.stop="onClick()"
+    >
+        <?= __("Save Your Cart") ?>
+    </a>
+</div>
+

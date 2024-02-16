@@ -1,0 +1,116 @@
+<?php
+/** @var $block \Maisondunet\SaveQuote\Block\ListSavedQuote */
+/** @var $escaper \Magento\Framework\Escaper */
+
+/** @var \Magento\Framework\Data\Helper\PostHelper $dataPosthelper */
+$dataPosthelper = $this->helper(\Magento\Framework\Data\Helper\PostHelper::class);
+?>
+<h2 class="block title text-primary font-semibold text-lg mb-3"><?= __("List of your saved carts") ?></h2>
+
+<div class="card grid grid-cols-5 lg:grid-cols-5 mb-4 " x-data="mdnSavedCartList()">
+    <div class="text-base text-secondary p-2 flex justify-start"><?= __("Name") ?></div>
+    <div class="text-base text-secondary p-2 flex justify-start"><?= __("Description") ?></div>
+    <div class="text-base text-secondary p-2 flex justify-center"><?= __("Number of Items") ?></div>
+    <div class="text-base text-secondary p-2 flex justify-center"><?= __("Total price") ?></div>
+    <div class="text-base text-secondary p-2 flex justify-center"><?= __("Action") ?></div>
+
+    <?php
+    $result = $block->getCustomerSavedCartList();
+    if ($result === null || $result->getTotalCount() === 0): ?>
+        <p><?= __("There is no saved cart") ?></p>
+    <?php else: ?>
+        <?php $i = 0; ?>
+        <?php foreach ($result->getItems() as $item): ?>
+            <?php $i++ ?>
+
+            <div
+                class="p-2 flex items-center  flex justify-start <?= $i % 2 === 0 ? '' : ' bg-container-darker' ?>"><?= $item->getName() ?></div>
+            <div
+                class="p-2 flex items-center  flex justify-start <?= $i % 2 === 0 ? '' : ' bg-container-darker' ?>"><?= $item->getDescription() ?></div>
+            <div
+                class="p-2 flex items-center  flex justify-center <?= $i % 2 === 0 ? '' : ' bg-container-darker' ?>"><?= $item->getItemsCount() ?></div>
+            <div
+                class="p-2 flex items-center  flex justify-center <?= $i % 2 === 0 ? '' : ' bg-container-darker' ?>"><?= $block->getFormatedPrice($item->getGrandTotal()) ?></div>
+            <div
+                class="p-2 flex items-center  flex justify-center <?= $i % 2 === 0 ? '' : ' bg-container-darker' ?> block">
+
+
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.restore');
+                $button->setQuoteDescription($item);
+                ?>
+                <a class="inline-block text-sm underline text-secondary-darker p-2" href="#"
+                   :class="{'opacity-50': loading}"
+                   @click="restoreToCart(<?= $escaper->escapeHtmlAttr($button->createAction()) ?>)">
+                    <?= $button->toHtml() ?>
+                </a>
+
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.view');
+                $button->setQuoteDescription($item);
+                ?>
+                <a class="inline-block text-sm underline text-secondary-darker p-2" href="<?= $escaper->escapeHtmlAttr($button->createAction()) ?>"
+                   :class="{'opacity-50': loading}"
+>
+                    <?= $button->toHtml() ?>
+                </a>
+
+                <?php
+                /** @var \Maisondunet\SaveQuote\Block\Button\ButtonAction $button */
+                $button = $block->getChildBlock('mdn.button.action.delete');
+                $button->setQuoteDescription($item);
+                ?>
+                <a class="inline-block text-sm underline text-secondary-darker p-2" href="#"
+                   :class="{'opacity-50': loading}"
+                   @click="deleteCart(<?= $escaper->escapeHtmlAttr($button->createAction()) ?>)">
+                    <?= $button->toHtml() ?>
+                </a>
+            </div>
+        <?php endforeach;
+    endif; ?>
+
+
+</div>
+
+<script type="application/javascript">
+
+    function mdnSavedCartList() {
+
+        return {
+            loading: false,
+            async restoreToCart(action) {
+                this.loading = true;
+                let formData = new FormData();
+                formData.append("id", action.data.id);
+                formData.append("form_key", hyva.getFormKey());
+                const res = await fetch(
+                    action.action,
+                    {
+                        method: 'post',
+                        body: formData
+                    }
+                );
+
+                if (res.redirected === true) {
+                    window.location = res.url;
+                }
+            },
+            async deleteCart(action) {
+                this.loading = true;
+                let formData = new FormData();
+                formData.append("id", action.data.id);
+                formData.append("form_key", hyva.getFormKey());
+                await fetch(
+                    action.action,
+                    {
+                        method: 'post',
+                        body: formData
+                    }
+                );
+                window.location.reload();
+            },
+        };
+    }
+</script>

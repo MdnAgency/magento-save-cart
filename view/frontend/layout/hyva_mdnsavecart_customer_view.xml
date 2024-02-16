@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="2columns-left">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock
+                name="mdn.savedquoteproductdetail"
+                template="Maisondunet_SaveQuote::hyva/saveQuoteProductDetail.phtml"/>
+            <referenceBlock
+                name="mdn.button.action.restore"
+                template="Maisondunet_SaveQuote::hyva/button/action/large.phtml"/>
+            <referenceBlock
+                name="checkout.cart.form"
+                template="Maisondunet_SaveQuote::hyva/cart/form.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

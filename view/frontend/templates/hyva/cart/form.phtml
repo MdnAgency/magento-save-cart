@@ -1,0 +1,38 @@
+<?php
+
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
+                 data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+        <table id="shopping-cart-table"
+               class="cart items data table w-full table-row-items"
+            <caption class="table-caption sr-only"><?= $block->escapeHtml(__('Cart Items')) ?></caption>
+            <thead class="hidden lg:table-header-group">
+                <tr class="text-right">
+                    <th class="col item text-left pt-4 px-4 pb-2" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
+                    <th class="col price pt-4 px-4 pb-2" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                    <th class="col qty pt-4 px-4 pb-2" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                    <th class="col subtotal pt-4 px-4 pb-2" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+                </tr>
+            </thead>
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </table>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
+                 data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+    </div>
+
+
+
