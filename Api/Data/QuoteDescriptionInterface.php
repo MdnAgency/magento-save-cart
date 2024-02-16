@@ -12,6 +12,7 @@ interface QuoteDescriptionInterface
     public const NAME = "name";
     public const DESCRIPTION = "description";
     public const QUOTE_ID ='quote_id';
+    public const CREATED_AT ='created_at';
 
     /**
      * Getter for Name.
@@ -63,5 +64,10 @@ interface QuoteDescriptionInterface
      * @return int|null
      */
     public function getQuoteDescriptionId(): ?int;
+
+    /**
+     * @return string|null
+     */
+    public function getCreatedAt(): ?string;
 
 }

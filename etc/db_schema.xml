@@ -7,6 +7,8 @@
                 default="0" comment="Quote ID"/>
         <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name Column"/>
         <column xsi:type="varchar" name="description" nullable="false" length="255" comment="Description Column"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>

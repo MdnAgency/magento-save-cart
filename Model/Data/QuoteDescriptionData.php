@@ -83,4 +83,9 @@ class QuoteDescriptionData extends DataObject implements QuoteDescriptionInterfa
     {
         $this->setData(self::QUOTE_ID, $quoteId);
     }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->getData(self::CREATED_AT);
+    }
 }
