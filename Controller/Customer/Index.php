@@ -2,10 +2,11 @@
 
 namespace Maisondunet\SaveQuote\Controller\Customer;
 
+use Magento\Customer\Controller\AccountInterface;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index implements HttpGetActionInterface
+class Index implements HttpGetActionInterface, AccountInterface
 {
     protected PageFactory $resultPageFactory;
 
@@ -17,7 +18,7 @@ class Index implements HttpGetActionInterface
         $this->resultPageFactory = $resultPageFactory;
     }
 
-    public function execute(): \Magento\Framework\View\Result\Page
+    public function execute()
     {
         return $this->resultPageFactory->create();
     }

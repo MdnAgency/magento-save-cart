@@ -42,6 +42,7 @@ class ProductDetail extends Template
      */
     public function getQuote(): \Magento\Quote\Api\Data\CartInterface
     {
+        // FIXME : Refactor should be handled by controller (request should not be used here)
         $quoteDescriptionId = $this->request->getParam('id');
         return $this->cartRepository->get($this->quoteId->execute($quoteDescriptionId));
     }

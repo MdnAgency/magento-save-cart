@@ -26,5 +26,27 @@
         </arguments>
     </virtualType>
 
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="sales" xsi:type="string">/mdnsavecart/</item>
+            </argument>
+        </arguments>
+    </type>
 
+    <type name="Maisondunet\SaveQuote\Controller\Customer\Delete">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
+    <type name="Maisondunet\SaveQuote\Controller\Customer\Index">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
+    <type name="Maisondunet\SaveQuote\Controller\Customer\Save">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
+    <type name="Maisondunet\SaveQuote\Controller\Customer\SwitchCart">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
+    <type name="Maisondunet\SaveQuote\Controller\Customer\View">
+        <plugin name="customer_account" type="Magento\Customer\Controller\Plugin\Account" />
+    </type>
 </config>

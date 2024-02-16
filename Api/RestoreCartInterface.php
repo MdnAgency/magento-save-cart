@@ -20,5 +20,5 @@ interface RestoreCartInterface
      * @param Quote $savedCart
      * @return CartInterface
      */
-    public function execute(Customer $customer, Quote $savedCart): CartInterface;
+    public function execute(Customer $customer, int $quoteDescriptionId): CartInterface;
 }
