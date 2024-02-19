@@ -54,7 +54,7 @@ User can add a saved cart in his current cart. If the current cart contains item
 
 ### Hyva Theme Compatibility  
 
-We have also created module compatibility for Hÿva Theme available [Here](https://github.com/MdnAgency/magento-hyva-save-cart)
+This module has native compatibility for Hÿva Theme since version 1.1.8. For older versions compatibility layer is available [Here](https://github.com/MdnAgency/magento-hyva-save-cart)
 
 ## Who are we ?
 If you want to discover the [Mdn-Agency](https://maisondunet.com/)
