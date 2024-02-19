@@ -17,9 +17,4 @@ class PopupForm extends Template
         parent::__construct($context, $data);
         $this->currentCart = $currentCart;
     }
-
-    public function getActiveQuoteId(): ?int
-    {
-        return $this->currentCart->getActiveQuoteId();
-    }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="2columns-left">
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="2columns-left">
     <update handle="customer_account"/>
     <update handle="checkout_cart_item_renderers"/>
     <update handle="mdnsave_cart_item_renderers"/>
@@ -15,15 +16,19 @@
             <block class="Maisondunet\SaveQuote\Block\ProductDetail"
                    template="Maisondunet_SaveQuote::saveQuoteProductDetail.phtml"
                    ifconfig="checkout/mdn_save_cart/enable_save_cart"
+                   cacheable="false"
                    name="mdn.savedquoteproductdetail">
-
-                <block name="mdn.button.action.restore" class="Maisondunet\SaveQuote\Block\Button\RestoreButton" template="Maisondunet_SaveQuote::button/action/large.phtml"
-                before="mdn.savedquoteproductdetail">
+                <block name="mdn.button.action.restore"
+                       class="Maisondunet\SaveQuote\Block\Button\RestoreButton"
+                       template="Maisondunet_SaveQuote::button/action/large.phtml"
+                       before="mdn.savedquoteproductdetail">
                     <arguments>
-                        <argument name="class" xsi:type="string"> action cart</argument>
+                        <argument name="class" xsi:type="string">action cart</argument>
                         <argument name="title" xsi:type="string" translate="true">Restore</argument>
                     </arguments>
-                    <block class="Magento\Framework\View\Element\Template" template="Maisondunet_SaveQuote::button/icons/restore.phtml" name="mdn.button.icon.restore" as="button-icon" />
+                    <block class="Magento\Framework\View\Element\Template"
+                           template="Maisondunet_SaveQuote::button/icons/restore.phtml" name="mdn.button.icon.restore"
+                           as="button-icon"/>
                 </block>
 
                 <block class="Maisondunet\SaveQuote\Block\Cart\Cart"
@@ -34,7 +39,6 @@
                     <arguments>
                         <argument name="view_model" xsi:type="object">Magento\Checkout\ViewModel\Cart</argument>
                     </arguments>
-
                     <block class="Magento\Framework\View\Element\RendererList"
                            name="mdnsave.cart.item.renderers"
                            as="renderer.list"/>

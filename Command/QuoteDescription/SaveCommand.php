@@ -85,6 +85,11 @@ class SaveCommand implements SaveQuoteDescriptionInterface
     {
         try {
             $validationResult = $this->formValidation->validate($quoteDescription);
+
+            // Fetch current customer cart
+            $currentQuote = $this->getCustomerQuote();
+            $quoteDescription->setQuoteId($currentQuote->getId());
+
             if (!$validationResult->isValid()) {
                 throw new ValidationException(
                     __('Validation error'),
@@ -101,9 +106,6 @@ class SaveCommand implements SaveQuoteDescriptionInterface
             if (!$model->getData(QuoteDescriptionInterface::QUOTE_DESCRIPTION_ID)) {
                 $model->isObjectNew(true);
             }
-
-            // Fetch current customer cart
-            $currentQuote = $this->getCustomerQuote();
 
             // Can user save current cart
             if ($this->checkForSave($currentQuote)) {

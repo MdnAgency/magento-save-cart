@@ -9,6 +9,7 @@ use Maisondunet\SaveQuote\Api\Data\QuoteDescriptionInterface;
 use Maisondunet\SaveQuote\Model\QuoteDescriptionModelFactory;
 use Maisondunet\SaveQuote\Query\QuoteDescription\GetQuoteDescriptionInterface;
 use Maisondunet\SaveQuote\Query\QuoteDescription\QuoteDescriptionIdToQuoteId;
+use Maisondunet\SaveQuote\ViewModel\CurrentQuote;
 
 class ProductDetail extends Template
 {
@@ -16,6 +17,7 @@ class ProductDetail extends Template
     private CartRepositoryInterface $cartRepository;
     private QuoteDescriptionIdToQuoteId $quoteId;
     private GetQuoteDescriptionInterface $getQuoteDescription;
+    private CurrentQuote $currentQuoteViewModel;
 
 
     public function __construct(
@@ -24,7 +26,7 @@ class ProductDetail extends Template
         CartRepositoryInterface $cartRepository,
         QuoteDescriptionIdToQuoteId $quoteId,
         GetQuoteDescriptionInterface $getQuoteDescription,
-
+        CurrentQuote $currentQuoteViewModel,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -34,6 +36,7 @@ class ProductDetail extends Template
         $this->quoteId = $quoteId;
 
         $this->getQuoteDescription = $getQuoteDescription;
+        $this->currentQuoteViewModel = $currentQuoteViewModel;
     }
 
     /**
@@ -42,9 +45,11 @@ class ProductDetail extends Template
      */
     public function getQuote(): \Magento\Quote\Api\Data\CartInterface
     {
-        // FIXME : Refactor should be handled by controller (request should not be used here)
-        $quoteDescriptionId = $this->request->getParam('id');
-        return $this->cartRepository->get($this->quoteId->execute($quoteDescriptionId));
+        $quote = $this->currentQuoteViewModel->getQuote();
+        if($quote === null) {
+            throw new \RuntimeException("ProductDetail block requires a CurrentQuote to be defined");
+        }
+        return $quote;
     }
 
     public function getQuoteDescription(): QuoteDescriptionInterface

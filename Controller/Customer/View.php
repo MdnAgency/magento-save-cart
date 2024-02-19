@@ -11,6 +11,7 @@ use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Maisondunet\SaveQuote\Api\QuoteDescriptionAuthorizationInterface;
 use Maisondunet\SaveQuote\Query\QuoteDescription\GetQuoteDescriptionInterface;
+use Maisondunet\SaveQuote\ViewModel\CurrentQuote;
 
 class View implements HttpGetActionInterface, AccountInterface
 {
@@ -20,6 +21,7 @@ class View implements HttpGetActionInterface, AccountInterface
     private QuoteDescriptionAuthorizationInterface $quoteDescriptionAuthorization;
     private RedirectFactory $redirectFactory;
     private UrlInterface $url;
+    private CurrentQuote $currentQuote;
 
     /**
      * @param PageFactory $resultPageFactory
@@ -30,7 +32,8 @@ class View implements HttpGetActionInterface, AccountInterface
         QuoteDescriptionAuthorizationInterface $quoteDescriptionAuthorization,
         PageFactory $resultPageFactory,
         UrlInterface $url,
-        RedirectFactory $redirectFactory
+        RedirectFactory $redirectFactory,
+        CurrentQuote $currentQuote
     ){
         $this->resultPageFactory = $resultPageFactory;
         $this->request = $request;
@@ -38,6 +41,7 @@ class View implements HttpGetActionInterface, AccountInterface
         $this->quoteDescriptionAuthorization = $quoteDescriptionAuthorization;
         $this->redirectFactory = $redirectFactory;
         $this->url = $url;
+        $this->currentQuote = $currentQuote;
     }
 
     public function execute()
@@ -45,6 +49,7 @@ class View implements HttpGetActionInterface, AccountInterface
         $quoteDescriptionId = $this->request->getParam('id');
         $quoteDescription = $this->getQuoteDescription->execute($quoteDescriptionId);
         if($quoteDescription->getQuoteId() && $this->quoteDescriptionAuthorization->canView($quoteDescription)){
+            $this->currentQuote->setQuote($quoteDescription);
             return $this->resultPageFactory->create();
         } else {
             $resultRedirect = $this->redirectFactory->create();

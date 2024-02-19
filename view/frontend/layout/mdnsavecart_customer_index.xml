@@ -13,8 +13,7 @@
                    ifconfig="checkout/mdn_save_cart/enable_save_cart"
                    template="Maisondunet_SaveQuote::listSavedQuote.phtml"
                    name="mdn.listsavedquote"
-                   cacheable="false"
-            >
+                   cacheable="false">
                 <block name="mdn.button.action.restore"
                        class="Maisondunet\SaveQuote\Block\Button\RestoreButton"
                        template="Maisondunet_SaveQuote::button/action/small.phtml" >

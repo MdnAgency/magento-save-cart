@@ -5,7 +5,6 @@
     <input class="input-text" type="text" name="name" required>
     <span><?= __("Description") ?></span>
     <input class="input-text" type="text" name="description">
-    <input type="hidden" name="quote_id" value="<?php echo $block->getActiveQuoteId(); ?>">
     <input type="hidden" name="form_key" value="hyva.getFormKey()">
     <?= $block->getChildHtml("form_additional_field") ?>
     <button class="btn btn-primary hover:bg-blue-500 m-1 mt-3 flex justify-center align-center" type="submit"><?= __("Save") ?></button>
