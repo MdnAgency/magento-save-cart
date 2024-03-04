@@ -3,9 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
     <head>
-        <title>
-            My saved carts
-        </title>
+        <title>My saved carts</title>
     </head>
     <body>
         <referenceContainer name="content">
