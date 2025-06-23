@@ -18,6 +18,7 @@ use Maisondunet\SaveQuote\Model\QuoteDescriptionModel;
 use Maisondunet\SaveQuote\Model\QuoteDescriptionModelFactory;
 use Maisondunet\SaveQuote\Model\ResourceModel\QuoteDescriptionResource;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\Exception\NoSuchEntityException\StoreManagerInterface;
 
 /**
  * Save QuoteDescription Command.
@@ -69,7 +70,8 @@ class SaveCommand implements SaveQuoteDescriptionInterface
         CartRepositoryInterface      $cartRepository,
         CartManagementInterface      $cartManagement,
         QuoteRepository              $quoteRepository,
-        QuoteDescriptionFormValidation $formValidation
+        QuoteDescriptionFormValidation $formValidation,
+        protected StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
@@ -151,7 +153,8 @@ class SaveCommand implements SaveQuoteDescriptionInterface
         if ($customer === null) {
             throw new LocalizedException(__('Hello guest if you want to saved your cart you have to login'));
         }
-        return $this->cartRepository->getActiveForCustomer($customer->getId(), [$customer->getStoreId()]);
+
+        return $this->cartRepository->getActiveForCustomer($customer->getId(), array_keys($this->storeManager->getStores(true)));
     }
 
     private function checkForSave(CartInterface $cart): bool
