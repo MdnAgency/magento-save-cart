@@ -18,7 +18,7 @@ use Maisondunet\SaveQuote\Model\QuoteDescriptionModel;
 use Maisondunet\SaveQuote\Model\QuoteDescriptionModelFactory;
 use Maisondunet\SaveQuote\Model\ResourceModel\QuoteDescriptionResource;
 use Psr\Log\LoggerInterface;
-use Magento\Framework\Exception\NoSuchEntityException\StoreManagerInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Save QuoteDescription Command.
