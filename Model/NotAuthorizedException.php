@@ -15,7 +15,7 @@ use Magento\Framework\Phrase;
 class NotAuthorizedException extends LocalizedException
 {
 
-    public function __construct(?Phrase $phrase = null, \Exception $cause = null, $code = 0)
+    public function __construct(?Phrase $phrase = null, ?\Exception $cause = null, $code = 0)
     {
         $phrase = $phrase ?? __("Not authorized");
         parent::__construct($phrase, $cause, $code);
