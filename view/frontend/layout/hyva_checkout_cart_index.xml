@@ -6,6 +6,8 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- hyva/saveQuote.phtml uses hyva.modal(): do not rely on the theme's cart layout to load it -->
+    <update handle="hyva_modal"/>
     <body>
         <referenceContainer name="checkout.cart.form.before">
             <referenceBlock name="mdn.savequote.block" template="Maisondunet_SaveQuote::hyva/saveQuote.phtml" />
